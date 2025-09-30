@@ -1,7 +1,6 @@
 # EquipoAzul_PetCare-360
 
 ## Tecnologías y Dependencias
-
 - Java 17
 - Spring Boot
 - Maven
@@ -10,23 +9,31 @@
 - JUnit 5
 - Jacoco
 - SonarQube
+### Pruebas iniciales
+![alt text](docs/imagenes/img.png)
+![alt text](docs/imagenes/img_1.png)
+![alt text](docs/imagenes/img_2.png)
 ---
 ## Estrategia de Ramas – GitFlow
 
 Para mantener un flujo de trabajo organizado y colaborativo:
 
 ### Ramas 
-- **main**: Rama estable que siempre contiene la versión de producción del proyecto.
+- **main**: Rama estable que siempre contiene la version de produccion del proyecto.
 - **develop**: Rama de desarrollo donde se integran todas las funcionalidades antes de ser liberadas a main.
 - **feature/DiagramasUML**: Rama para Implementar los Diagramas Solicitados en el enunciado
+
 ### Estructura Commit
 commit -m "Semana #: Primer Nombre y apellido - la acción realizada"
+
 ---
 ## Diagrama de contexto
 ![alt text](docs/uml/Contexto.drawio.png)
-
+En este diagrama se identificaron los actores Cliente y Veterinarias, Se relaciono como interactuan dichos actores con el Sistema PetCare 360 y que acciones pueden realizar dentro de este.
 ## Diagrama de casos de Uso
 ![alt text](docs/uml/Casos.drawio.png)
+En este diagrama se definieron que acciones puede hacer cada actor en este caso Cliente es todo lo relacionado con usar el servicio del cuidado de las mascota
+y en Veterinaria todo lo relacionado en proveer el servicio para el cuidado de la masota
 ## Historias de Usuario
 
 ###  Cliente
