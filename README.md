@@ -1,9 +1,33 @@
 # EquipoAzul_PetCare-360
+
+## Tecnologías y Dependencias
+
+- Java 17
+- Spring Boot
+- Maven
+- Lombok
+- Swagger UI
+- JUnit 5
+- Jacoco
+- SonarQube
+---
+## Estrategia de Ramas – GitFlow
+
+Para mantener un flujo de trabajo organizado y colaborativo:
+
+### Ramas 
+- **main**: Rama estable que siempre contiene la versión de producción del proyecto.
+- **develop**: Rama de desarrollo donde se integran todas las funcionalidades antes de ser liberadas a main.
+- **feature/DiagramasUML**: Rama para Implementar los Diagramas Solicitados en el enunciado
+### Estructura Commit
+commit -m "Semana #: Primer Nombre y apellido - la acción realizada"
+---
 ## Diagrama de contexto
 ![alt text](docs/uml/Contexto.drawio.png)
+
 ## Diagrama de casos de Uso
 ![alt text](docs/uml/Casos.drawio.png)
-## 📖 Historias de Usuario
+## Historias de Usuario
 
 ###  Cliente
 
@@ -40,16 +64,17 @@
 ## Patrones de Diseño aplicados
 
 - **Factory Method**  
-  Usado para crear diferentes tipos de mascotas mediante una clase llamada `PetFactory`.
+  Usado para crear diferentes tipos de mascotas mediante una clase llamada PetFactory.
 
 - **Builder**  
-  Utilizado para la construcción de objetos complejos como `MedicalRecord` (Historial Clínico) que contiene múltiples `Diagnosis` y `Treatment`.
+  Utilizado para la construcción de objetos complejos como MedicalRecord (Historial Clínico) que contiene múltiples Diagnosis y Treatment.
 
 - **Strategy**  
   Implementado en el manejo de tratamientos o diagnósticos, que pueden variar según la especie del animal.
 
 - **Singleton**  
-  Aplicado en la clase `Veterinary`, si el modelo representa una única instancia global de la clínica.
+  Aplicado en la clase Veterinary, si el modelo representa una única instancia global de la clínica.
+
 
 ---
 
@@ -57,19 +82,19 @@
 
 - **S – Single Responsibility Principle (SRP)**  
   Cada clase tiene una única responsabilidad dentro del dominio.  
-  *Ejemplo:* `PetFactory` solo crea mascotas, no las registra ni las trata.
+  *Ejemplo:* PetFactory solo crea mascotas, no las registra ni las trata.
 
 - **O – Open/Closed Principle (OCP)**  
   Las clases están cerradas para modificación pero abiertas para extensión.  
-  *Ejemplo:* se pueden agregar nuevos tipos de mascotas sin modificar la lógica existente en `PetFactory`.
+  *Ejemplo:* se pueden agregar nuevos tipos de mascotas sin modificar la lógica existente en PetFactory.
 
 - **L – Liskov Substitution Principle (LSP)**  
   Las subclases deben comportarse como su superclase sin alterar la funcionalidad del sistema.  
-  *Ejemplo:* `Dog extends Pet` y `Cat extends Pet` funcionan de manera consistente como `Pet`.
+  *Ejemplo:* Dog extends Pet y Cat extends Pet funcionan de manera consistente como Pet.
 
 - **I – Interface Segregation Principle (ISP)**  
   Cada interfaz define solo lo necesario, sin obligar a implementar métodos inútiles.  
-  *Ejemplo:* cada `TreatmentStrategy` implementa su propia interfaz sin heredar métodos que no aplica.
+  *Ejemplo:* cada TreatmentStrategy implementa su propia interfaz sin heredar métodos que no aplica.
 
 - **D – Dependency Inversion Principle (DIP)**  
   El código del dominio depende de abstracciones y no de implementaciones concretas.  
