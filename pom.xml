@@ -27,13 +27,13 @@
         <sonar.coverage.exclusions>src//configurators/**</sonar.coverage.exclusions>
 
         <jacoco.exclusions.pattern>
-            */aop/*,
-            */models/*,
-            */dtos/*,
-            */enums/*,
-            */specifications/*,
-            */configs/*,
-            */security/*,
+            **/aop/**,
+            **/models/**,
+            **/dtos/**,
+            **/enums/**,
+            **/specifications/**,
+            **/configs/**,
+            **/security/**,
             **/ClassApplication.class
         </jacoco.exclusions.pattern>
     </properties>
