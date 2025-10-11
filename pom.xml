@@ -30,12 +30,18 @@
             **/aop/**,
             **/models/**,
             **/dtos/**,
+            **/mappers/**,
             **/enums/**,
             **/specifications/**,
             **/configs/**,
             **/security/**,
-            **/ClassApplication.class
+            **/exceptions/**,
+            **/utils/**,
+            **/repositories/**,
+            **/validators/**,
+            **/*Application.class
         </jacoco.exclusions.pattern>
+
     </properties>
 
     <dependencies>

@@ -16,4 +16,14 @@ public enum Species {
     public String getDisplayName() {
         return displayName;
     }
+    public static Species fromDisplayName(String name) {
+        if (name == null) return null;
+        for (Species s : Species.values()) {
+            if (s.getDisplayName().equalsIgnoreCase(name)) {
+                return s;
+            }
+        }
+        return null;
+    }
+
 }
