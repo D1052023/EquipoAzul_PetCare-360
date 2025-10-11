@@ -9,6 +9,7 @@
 - JUnit 5
 - Jacoco
 - SonarQube
+- Mongo
 ### Pruebas iniciales
 ![alt text](docs/imagenes/img.png)
 ![alt text](docs/imagenes/img_1.png)
@@ -29,12 +30,113 @@ commit -m "Semana #: Primer Nombre y apellido - la acción realizada"
 ---
 ## Diagrama de contexto
 ![alt text](docs/uml/Contexto.drawio.png)
-En este diagrama se identificaron los actores Cliente y Veterinarias, Se relaciono como interactuan dichos actores con el Sistema PetCare 360 y que acciones pueden realizar dentro de este.
+
+El diagrama de contexto muestra el  sistema PetCare-360 y sus relaciones con los actores externos
+que interactúan con el. PetCare-360 centraliza en la gestion de servicios de las veterinarias,
+aplica las reglas de negocio definidas por la empresa.
+
+- Cliente: Son los encargados de registrar a sus mascotas, consultan los servicios disponibles, agendan las citas y adquieren productos de la empresa.
+
+- Veterinaria: Las entidades se prestan para proveer la disponibilidad de sus citas, sus tratamientso, sus productos y envia todo lo relacionado con la historia clinica.
+
 ## Diagrama de casos de Uso
 ![alt text](docs/uml/Casos.drawio.png)
 En este diagrama se definieron que acciones puede hacer cada actor en este caso Cliente es todo lo relacionado con usar el servicio del cuidado de las mascota
 y en Veterinaria todo lo relacionado en proveer el servicio para el cuidado de la masota
-## Historias de Usuario
+---
+## Funcionalidades
+
+### Actor: Cliente
+
+El **Cliente** puede acceder a la plataforma para gestionar sus mascotas, servicios veterinarios y compras de productos.  
+A continuación se detallan sus funcionalidades:
+
+- F1. Consultar productos
+  - Visualizar catálogo de productos (alimentos, medicamentos, accesorios).
+  - Filtrar por tipo, precio o disponibilidad.
+  - Ver descripción detallada y precio de cada producto.
+
+- F2. Llevar mascotas
+  - Registrar que una mascota ha sido llevada físicamente a la veterinaria.
+  - Asociar el registro a una cita o atención médica.
+
+- F3. Consultar historial clínico de la mascota
+  - Visualizar el historial médico completo de una mascota.
+  - Revisar diagnósticos, tratamientos y fechas de atención.
+  - Descargar o imprimir el historial clínico.
+
+- F4. Solicitar citas
+  - Iniciar solicitud de cita médica para una mascota.
+  - Seleccionar servicio, veterinario y fecha disponible.
+  - Incluye las siguientes subfuncionalidades:
+      - F4.1 Agendar cita: confirmar fecha, hora y veterinario asignado.
+      - F4.2 Cancelar cita: eliminar una cita programada.
+      - F4.3 Reprogramar cita: cambiar la fecha o el horario de una cita existente.
+
+- F5. Consultar disponibilidad de citas
+  - Ver horarios disponibles según el servicio o veterinario.
+  - Filtrar por día, hora o tipo de atención.
+
+- F6. Consultar servicios
+  - Consultar la lista de servicios ofrecidos por la veterinaria.
+  - Ver precios, descripción y duración estimada.
+
+- F7. Consultar factura
+  - Revisar facturas de servicios y compras anteriores.
+  - Descargar comprobantes de pago en formato digital.
+
+---
+
+### Actor: Veterinaria
+
+- F8. Registrar mascotas ingresadas
+  - Ingresar información de nuevas mascotas atendidas.
+  - Asociar cada mascota al cliente correspondiente.
+  - Registrar motivo de ingreso o tipo de atención.
+
+- F9. Consultar mascotas ingresadas
+  - Buscar mascotas por nombre o propietario.
+  - Consultar información médica o citas activas.
+
+- F10. Asignar citas
+  - Programar citas en los espacios disponibles.
+  - Confirmar veterinario, fecha y tipo de servicio.
+  - Evitar duplicidad de horarios.
+
+- F11. Generar facturas
+  - Calcular el valor total del servicio o producto.
+  - Registrar el pago y generar comprobante electrónico.
+  - Asociar factura con cliente y mascota atendida.
+ 
+- F12. Generar historial clínico
+  - Crear o actualizar historial médico tras una cita.
+  - Incluye:
+      - F12.1 Registrar diagnóstico: registrar los resultados de la consulta médica.
+      - F12.2 Registrar tratamiento: prescribir medicamentos o cuidados posteriores.
+
+- F13. Consultar disponibilidad de citas
+  - Ver agenda general y disponibilidad de veterinarios.
+  - Modificar horarios según requerimientos del centro.
+
+- F14. Consultar historial clínico de la mascota
+  - Acceder al historial completo de una mascota.
+  - Editar o agregar observaciones clínicas.
+
+- F15. Proporcionar productos
+  - Registrar venta o entrega de productos al cliente.
+  - Actualizar el inventario en tiempo real.
+  - Asociar venta con factura correspondiente.
+
+- F16. Consultar servicios solicitados
+  - Ver servicios pendientes o en curso.
+  - Filtrar por cliente, mascota o tipo de atención.
+
+- F17. Consultar facturas
+  - Visualizar facturas emitidas por fecha o cliente.
+  - Modificar estado (pagada, pendiente o anulada).
+
+---
+## Historias de usuario
 
 ###  Cliente
 
@@ -48,8 +150,7 @@ y en Veterinaria todo lo relacionado en proveer el servicio para el cuidado de l
 - Como **Cliente**, quiero consultar la disponibilidad de citas para seleccionar una fecha y hora adecuada.
 - Como **Cliente**, quiero consultar los servicios disponibles para saber qué atención puede recibir mi mascota.
 - Como **Cliente**, quiero consultar mi factura para conocer los pagos pendientes o realizados.
-
----
+- Como **Cliente**, quiero consultar mi cita para conocer qué dia tengo que llevar a mi mascota.
 
 ### Veterinaria
 
@@ -65,6 +166,8 @@ y en Veterinaria todo lo relacionado en proveer el servicio para el cuidado de l
 - Como **Veterinaria**, quiero proporcionar productos para cubrir las necesidades del cliente y la mascota.
 - Como **Veterinaria**, quiero consultar los servicios solicitados para verificar la atención prestada.
 - Como **Veterinaria**, quiero consultar facturas para llevar el control contable.
+- Como **Veterinaria**, quiero consultar citas para conocer qué dia tengo que recibir mascotas.
+
 
 ## Diagrama de clases
 ![alt text](docs/uml/Clases.drawio.png)
@@ -73,15 +176,8 @@ y en Veterinaria todo lo relacionado en proveer el servicio para el cuidado de l
 - **Factory Method**  
   Usado para crear diferentes tipos de mascotas mediante una clase llamada PetFactory.
 
-- **Builder**  
-  Utilizado para la construcción de objetos complejos como MedicalRecord (Historial Clínico) que contiene múltiples Diagnosis y Treatment.
-
 - **Strategy**  
   Implementado en el manejo de tratamientos o diagnósticos, que pueden variar según la especie del animal.
-
-- **Singleton**  
-  Aplicado en la clase Veterinary, si el modelo representa una única instancia global de la clínica.
-
 
 ---
 
