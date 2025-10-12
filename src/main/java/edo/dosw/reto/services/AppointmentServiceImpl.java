@@ -28,10 +28,8 @@ public class AppointmentServiceImpl implements AppointmentService {
             );
         }
 
-        // Apply business rules
         validator.validate(appointment);
 
-        // Save appointment
         return repository.save(appointment);
     }
 
@@ -64,20 +62,5 @@ public class AppointmentServiceImpl implements AppointmentService {
         return repository.findByPet(petId);
     }
 
-    @Override
-    public void cancel(String id) {
-        if (id == null || id.isBlank()) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "Appointment ID cannot be null or empty."
-            );
-        }
 
-        Appointment existing = repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "No appointment found with id: " + id
-                ));
-
-        repository.deleteById(existing.getId());
-    }
 }

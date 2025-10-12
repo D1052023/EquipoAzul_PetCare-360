@@ -11,6 +11,5 @@ public interface AppointmentRepository {
     List<Appointment> findByVeterinary(String veterinaryId);
     List<Appointment> findByPet(String petId);
     List<Appointment> findAll();
-    void deleteById(String id);
 
 }

@@ -46,9 +46,5 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
     public List<Appointment> findAll() {
         return new ArrayList<>(data.values());
     }
-    @Override
-    public void deleteById(String id) {
-        data.remove(id);
-    }
 
 }
