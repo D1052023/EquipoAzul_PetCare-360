@@ -31,12 +31,4 @@ public class AppointmentServiceImpl implements AppointmentService {
         return repository.save(appointment);
     }
 
-    @Override
-    public Appointment findById(String id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Appointment not found with id: " + id
-                ));
-    }
 }

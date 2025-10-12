@@ -22,12 +22,6 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
     }
 
     @Override
-    public Optional<Appointment> findById(String id) {
-        return Optional.ofNullable(data.get(id));
-    }
-
-
-    @Override
     public List<Appointment> findAll() {
         return new ArrayList<>(data.values());
     }

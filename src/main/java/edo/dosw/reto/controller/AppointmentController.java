@@ -56,15 +56,4 @@ public class AppointmentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(AppointmentMapper.toDTO(saved));
     }
 
-    /** Cpnsultar cita por identificacion**/
-    @GetMapping("/{id}")
-    public ResponseEntity<AppointmentDTO> getById(@PathVariable String id) {
-        if (id == null || id.isBlank()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Appointment ID cannot be empty.");
-        }
-
-        Appointment appointment = service.findById(id);
-        return ResponseEntity.ok(AppointmentMapper.toDTO(appointment));
-    }
-
 }
