@@ -67,19 +67,4 @@ public class AppointmentController {
         return ResponseEntity.ok(AppointmentMapper.toDTO(appointment));
     }
 
-    /** Listado de todas las citas por mascota **/
-    @GetMapping("/pets/{id}")
-    public ResponseEntity<List<AppointmentDTO>> getByPet(@PathVariable String id) {
-        if (id == null || id.isBlank()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pet ID cannot be empty.");
-        }
-
-        List<AppointmentDTO> list = service.findByPet(id)
-                .stream()
-                .map(AppointmentMapper::toDTO)
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(list);
-    }
-
 }

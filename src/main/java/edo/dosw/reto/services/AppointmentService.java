@@ -7,5 +7,4 @@ import java.util.List;
 public interface AppointmentService {
     Appointment schedule(Appointment appointment);
     Appointment findById(String id);
-    List<Appointment> findByPet(String petId);
 }

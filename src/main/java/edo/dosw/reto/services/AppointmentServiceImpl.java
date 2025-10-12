@@ -39,15 +39,4 @@ public class AppointmentServiceImpl implements AppointmentService {
                         "Appointment not found with id: " + id
                 ));
     }
-
-    @Override
-    public List<Appointment> findByPet(String petId) {
-        if (petId == null || petId.isBlank()) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "Pet ID cannot be null or empty."
-            );
-        }
-        return repository.findByPet(petId);
-    }
-
 }

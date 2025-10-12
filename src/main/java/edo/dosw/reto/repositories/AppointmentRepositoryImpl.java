@@ -28,14 +28,6 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
 
 
     @Override
-    public List<Appointment> findByPet(String petId) {
-        return data.values().stream()
-                .filter(a -> a.getPet() != null &&
-                        petId.equals(a.getPet().getId()))
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public List<Appointment> findAll() {
         return new ArrayList<>(data.values());
     }

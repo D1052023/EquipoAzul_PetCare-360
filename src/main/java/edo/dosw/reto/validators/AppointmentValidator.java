@@ -24,14 +24,6 @@ public class AppointmentValidator {
         if (appointment.getService() == null) {
             throw new IllegalArgumentException("Debe especificar un servicio para la cita");
         }
-        
-        boolean petConflict = repository.findByPet(appointment.getPet().getId())
-                .stream()
-                .anyMatch(a -> a.getDate().equals(appointment.getDate()) &&
-                        a.getTime().equals(appointment.getTime()));
 
-        if (petConflict) {
-            throw new IllegalStateException("La mascota ya tiene una cita en esa fecha y hora");
-        }
     }
 }

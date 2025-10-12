@@ -8,7 +8,6 @@ import java.util.Optional;
 public interface AppointmentRepository {
     Appointment save(Appointment appointment);
     Optional<Appointment> findById(String id);
-    List<Appointment> findByPet(String petId);
     List<Appointment> findAll();
 
 }
