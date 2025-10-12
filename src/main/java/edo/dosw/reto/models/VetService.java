@@ -1,5 +1,6 @@
 package edo.dosw.reto.models;
 
+import edo.dosw.reto.enums.ServiceType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class VetService {
     private String id;
-    private String name;
+    private ServiceType type;
     private String description;
 }
