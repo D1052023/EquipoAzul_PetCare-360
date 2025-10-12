@@ -28,10 +28,8 @@ public class AppointmentServiceImpl implements AppointmentService {
             );
         }
 
-        // Apply business rules
         validator.validate(appointment);
 
-        // Save appointment
         return repository.save(appointment);
     }
 

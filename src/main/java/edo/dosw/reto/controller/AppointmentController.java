@@ -25,7 +25,7 @@ public class AppointmentController {
         this.service = service;
     }
 
-    /** 🟢 Schedule a new appointment **/
+    /** Agendar una nueva cita **/
     @PostMapping
     public ResponseEntity<AppointmentDTO> schedule(@RequestBody AppointmentDTO dto) {
         if (dto == null) {
@@ -56,7 +56,7 @@ public class AppointmentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(AppointmentMapper.toDTO(saved));
     }
 
-    /** 🔹 Get appointment by ID **/
+    /** Consultar cita por id**/
     @GetMapping("/{id}")
     public ResponseEntity<AppointmentDTO> getById(@PathVariable String id) {
         if (id == null || id.isBlank()) {
@@ -67,7 +67,7 @@ public class AppointmentController {
         return ResponseEntity.ok(AppointmentMapper.toDTO(appointment));
     }
 
-    /** 🔹 List all appointments by pet **/
+    /** Listado de citas por mascota **/
     @GetMapping("/pets/{id}")
     public ResponseEntity<List<AppointmentDTO>> getByPet(@PathVariable String id) {
         if (id == null || id.isBlank()) {
@@ -82,18 +82,7 @@ public class AppointmentController {
         return ResponseEntity.ok(list);
     }
 
-    /** 🔹 Cancel an appointment **/
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> cancel(@PathVariable String id) {
-        if (id == null || id.isBlank()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Appointment ID cannot be empty.");
-        }
-
-        service.cancel(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    /** 🔹 Get all appointments for a veterinary, optionally filtered by date **/
+    /** Consultar todas las citas para un veterinario, opcionalmente filtradas por fecha**/
     @GetMapping("/veterinaries/{id}")
     public ResponseEntity<List<AppointmentDTO>> getByVeterinary(
             @PathVariable String id,
@@ -121,5 +110,15 @@ public class AppointmentController {
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(list);
+    }
+    /** Cancelar una cita**/
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> cancel(@PathVariable String id) {
+        if (id == null || id.isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Appointment ID cannot be empty.");
+        }
+
+        service.cancel(id);
+        return ResponseEntity.noContent().build();
     }
 }
