@@ -121,4 +121,5 @@ public class AppointmentController {
         service.cancel(id);
         return ResponseEntity.noContent().build();
     }
+
 }

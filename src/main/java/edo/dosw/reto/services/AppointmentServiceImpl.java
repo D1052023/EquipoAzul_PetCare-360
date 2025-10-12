@@ -78,4 +78,5 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         repository.deleteById(existing.getId());
     }
+
 }
