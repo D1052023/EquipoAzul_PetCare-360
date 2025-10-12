@@ -9,4 +9,5 @@ public interface AppointmentService {
     Appointment findById(String id);
     List<Appointment> findByVeterinary(String veterinaryId);
     List<Appointment> findByPet(String petId);
+    void cancel(String id);
 }

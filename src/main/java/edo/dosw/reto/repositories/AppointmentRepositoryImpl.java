@@ -2,7 +2,6 @@ package edo.dosw.reto.repositories;
 
 
 import edo.dosw.reto.models.Appointment;
-import edo.dosw.reto.repositories.AppointmentRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -47,4 +46,9 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
     public List<Appointment> findAll() {
         return new ArrayList<>(data.values());
     }
+    @Override
+    public void deleteById(String id) {
+        data.remove(id);
+    }
+
 }

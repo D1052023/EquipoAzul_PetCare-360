@@ -3,7 +3,7 @@ package edo.dosw.reto.services;
 
 import edo.dosw.reto.models.Appointment;
 import edo.dosw.reto.repositories.AppointmentRepository;
-import edo.dosw.reto.services.AppointmentService;
+
 import edo.dosw.reto.validators.AppointmentValidator;
 import org.springframework.stereotype.Service;
 
@@ -41,4 +41,11 @@ public class AppointmentServiceImpl implements AppointmentService {
     public List<Appointment> findByPet(String petId) {
         return repository.findByPet(petId);
     }
+    @Override
+    public void cancel(String id) {
+        Appointment existing = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No se encontró la cita con id: " + id));
+        repository.deleteById(existing.getId());
+    }
+
 }
