@@ -13,7 +13,7 @@ public class AppointmentDTO {
     private String veterinaryId;
     private String veterinaryName;
     private String serviceId;
-    private String serviceName;
+    private String serviceType;
     private String serviceDescription;
     private String date;
     private String time;

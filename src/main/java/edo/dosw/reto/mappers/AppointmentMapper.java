@@ -1,6 +1,7 @@
 package edo.dosw.reto.mappers;
 
 import edo.dosw.reto.dtos.AppointmentDTO;
+import edo.dosw.reto.enums.ServiceType;
 import edo.dosw.reto.models.*;
 
 import java.time.LocalDate;
@@ -12,38 +13,72 @@ public final class AppointmentMapper {
 
     public static AppointmentDTO toDTO(Appointment entity) {
         if (entity == null) return null;
+
         AppointmentDTO dto = new AppointmentDTO();
         dto.setId(entity.getId());
+
         if (entity.getPet() != null) {
             dto.setPetId(entity.getPet().getId());
             dto.setPetName(entity.getPet().getName());
-            dto.setPetSpecies(entity.getPet().getSpecies() != null ? entity.getPet().getSpecies().name() : null);
+            dto.setPetSpecies(entity.getPet().getSpecies() != null
+                    ? entity.getPet().getSpecies().name()
+                    : null);
             dto.setPetRace(entity.getPet().getRace());
         }
+
         if (entity.getVeterinary() != null) {
             dto.setVeterinaryId(entity.getVeterinary().getId());
             dto.setVeterinaryName(entity.getVeterinary().getName());
         }
+
         if (entity.getService() != null) {
             dto.setServiceId(entity.getService().getId());
-            dto.setServiceName(entity.getService().getName());
+            dto.setServiceType(entity.getService().getType() != null
+                    ? entity.getService().getType().getDisplayName()
+                    : null);
             dto.setServiceDescription(entity.getService().getDescription());
         }
+
         if (entity.getDate() != null) dto.setDate(entity.getDate().toString());
         if (entity.getTime() != null) dto.setTime(entity.getTime().toString());
+
         dto.setReason(entity.getReason());
         return dto;
     }
 
     public static Appointment toEntity(AppointmentDTO dto, Pet pet, Veterinary vet, VetService service) {
+        if (dto == null) return null;
+
         Appointment appointment = new Appointment();
         appointment.setId(dto.getId());
         appointment.setPet(pet);
         appointment.setVeterinary(vet);
-        appointment.setService(service);
+
+        ServiceType type = null;
+        if (dto.getServiceType() != null && !dto.getServiceType().isBlank()) {
+            try {
+                type = ServiceType.fromDisplayName(dto.getServiceType());
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("Invalid service type: " + dto.getServiceType());
+            }
+        }
+
+        VetService serviceEntity = new VetService(
+                dto.getServiceId(),
+                type,
+                dto.getServiceDescription()
+        );
+
+        appointment.setService(serviceEntity);
         appointment.setReason(dto.getReason());
-        appointment.setDate(LocalDate.parse(dto.getDate()));
-        appointment.setTime(LocalTime.parse(dto.getTime()));
+
+        if (dto.getDate() != null && !dto.getDate().isBlank()) {
+            appointment.setDate(LocalDate.parse(dto.getDate()));
+        }
+        if (dto.getTime() != null && !dto.getTime().isBlank()) {
+            appointment.setTime(LocalTime.parse(dto.getTime()));
+        }
+
         return appointment;
     }
 }
