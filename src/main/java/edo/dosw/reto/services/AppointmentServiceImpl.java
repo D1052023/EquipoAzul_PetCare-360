@@ -27,11 +27,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                     HttpStatus.BAD_REQUEST, "Appointment data cannot be null."
             );
         }
-
-        // Apply business rules
         validator.validate(appointment);
-
-        // Save appointment
         return repository.save(appointment);
     }
 
@@ -45,16 +41,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public List<Appointment> findByVeterinary(String veterinaryId) {
-        if (veterinaryId == null || veterinaryId.isBlank()) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "Veterinary ID cannot be null or empty."
-            );
-        }
-        return repository.findByVeterinary(veterinaryId);
-    }
-
-    @Override
     public List<Appointment> findByPet(String petId) {
         if (petId == null || petId.isBlank()) {
             throw new ResponseStatusException(
@@ -64,20 +50,4 @@ public class AppointmentServiceImpl implements AppointmentService {
         return repository.findByPet(petId);
     }
 
-    @Override
-    public void cancel(String id) {
-        if (id == null || id.isBlank()) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "Appointment ID cannot be null or empty."
-            );
-        }
-
-        Appointment existing = repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "No appointment found with id: " + id
-                ));
-
-        repository.deleteById(existing.getId());
-    }
 }

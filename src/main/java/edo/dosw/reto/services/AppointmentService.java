@@ -7,7 +7,5 @@ import java.util.List;
 public interface AppointmentService {
     Appointment schedule(Appointment appointment);
     Appointment findById(String id);
-    List<Appointment> findByVeterinary(String veterinaryId);
     List<Appointment> findByPet(String petId);
-    void cancel(String id);
 }

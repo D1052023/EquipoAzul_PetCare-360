@@ -26,13 +26,6 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
         return Optional.ofNullable(data.get(id));
     }
 
-    @Override
-    public List<Appointment> findByVeterinary(String veterinaryId) {
-        return data.values().stream()
-                .filter(a -> a.getVeterinary() != null &&
-                        veterinaryId.equals(a.getVeterinary().getId()))
-                .collect(Collectors.toList());
-    }
 
     @Override
     public List<Appointment> findByPet(String petId) {
@@ -46,9 +39,6 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
     public List<Appointment> findAll() {
         return new ArrayList<>(data.values());
     }
-    @Override
-    public void deleteById(String id) {
-        data.remove(id);
-    }
+
 
 }

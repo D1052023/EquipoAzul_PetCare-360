@@ -25,7 +25,7 @@ public class AppointmentController {
         this.service = service;
     }
 
-    /** 🟢 Schedule a new appointment **/
+    /** Agenda una nueva cita**/
     @PostMapping
     public ResponseEntity<AppointmentDTO> schedule(@RequestBody AppointmentDTO dto) {
         if (dto == null) {
@@ -56,7 +56,7 @@ public class AppointmentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(AppointmentMapper.toDTO(saved));
     }
 
-    /** 🔹 Get appointment by ID **/
+    /** Cpnsultar cita por identificacion**/
     @GetMapping("/{id}")
     public ResponseEntity<AppointmentDTO> getById(@PathVariable String id) {
         if (id == null || id.isBlank()) {
@@ -67,7 +67,7 @@ public class AppointmentController {
         return ResponseEntity.ok(AppointmentMapper.toDTO(appointment));
     }
 
-    /** 🔹 List all appointments by pet **/
+    /** Listado de todas las citas por mascota **/
     @GetMapping("/pets/{id}")
     public ResponseEntity<List<AppointmentDTO>> getByPet(@PathVariable String id) {
         if (id == null || id.isBlank()) {
@@ -82,44 +82,4 @@ public class AppointmentController {
         return ResponseEntity.ok(list);
     }
 
-    /** 🔹 Cancel an appointment **/
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> cancel(@PathVariable String id) {
-        if (id == null || id.isBlank()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Appointment ID cannot be empty.");
-        }
-
-        service.cancel(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    /** 🔹 Get all appointments for a veterinary, optionally filtered by date **/
-    @GetMapping("/veterinaries/{id}")
-    public ResponseEntity<List<AppointmentDTO>> getByVeterinary(
-            @PathVariable String id,
-            @RequestParam(required = false) String date) {
-
-        if (id == null || id.isBlank()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Veterinary ID cannot be empty.");
-        }
-
-        List<Appointment> appointments = service.findByVeterinary(id);
-
-        if (date != null && !date.isBlank()) {
-            try {
-                LocalDate parsedDate = LocalDate.parse(date);
-                appointments = appointments.stream()
-                        .filter(a -> a.getDate().equals(parsedDate))
-                        .collect(Collectors.toList());
-            } catch (Exception e) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid date format. Use YYYY-MM-DD.");
-            }
-        }
-
-        List<AppointmentDTO> list = appointments.stream()
-                .map(AppointmentMapper::toDTO)
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(list);
-    }
 }
