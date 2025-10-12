@@ -8,6 +8,7 @@ import edo.dosw.reto.services.AppointmentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,15 +46,6 @@ public class AppointmentController {
         return ResponseEntity.ok(AppointmentMapper.toDTO(appointment));
     }
 
-    /** Listar citas por veterinario **/
-    @GetMapping("/veterinarios/{id}")
-    public ResponseEntity<List<AppointmentDTO>> getByVeterinary(@PathVariable String id) {
-        List<AppointmentDTO> list = service.findByVeterinary(id)
-                .stream().map(AppointmentMapper::toDTO)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(list);
-    }
-
     /** Listar citas por mascota **/
     @GetMapping("/mascotas/{id}")
     public ResponseEntity<List<AppointmentDTO>> getByPet(@PathVariable String id) {
@@ -68,5 +60,26 @@ public class AppointmentController {
     public ResponseEntity<Void> cancel(@PathVariable String id) {
         service.cancel(id);
         return ResponseEntity.noContent().build();
+    }
+    /** 🔹 Consultar todas las citas de un veterinario (opcionalmente por fecha) **/
+    @GetMapping("/veterinarios/{id}")
+    public ResponseEntity<List<AppointmentDTO>> getByVeterinary(
+            @PathVariable String id,
+            @RequestParam(required = false) String fecha) {
+
+        List<Appointment> appointments = service.findByVeterinary(id);
+
+        if (fecha != null && !fecha.isBlank()) {
+            LocalDate date = LocalDate.parse(fecha);
+            appointments = appointments.stream()
+                    .filter(a -> a.getDate().equals(date))
+                    .collect(Collectors.toList());
+        }
+
+        List<AppointmentDTO> list = appointments.stream()
+                .map(AppointmentMapper::toDTO)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(list);
     }
 }
