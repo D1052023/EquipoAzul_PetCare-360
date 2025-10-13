@@ -54,14 +54,23 @@ public final class AppointmentMapper {
         appointment.setPet(pet);
         appointment.setVeterinary(vet);
 
+
         ServiceType type = null;
+        if (dto.getServiceType() != null && !dto.getServiceType().isBlank()) {
+            try {
+                type = ServiceType.fromDisplayName(dto.getServiceType());
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("Tipo de servicio inválido: " + dto.getServiceType());
+            }
+        }
+
         VetService serviceEntity = new VetService(
                 dto.getServiceId(),
                 type,
                 dto.getServiceDescription()
         );
-
         appointment.setService(serviceEntity);
+
         appointment.setReason(dto.getReason());
 
         if (dto.getDate() != null && !dto.getDate().isBlank()) {
@@ -73,4 +82,5 @@ public final class AppointmentMapper {
 
         return appointment;
     }
+
 }

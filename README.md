@@ -9,7 +9,6 @@
 - JUnit 5
 - Jacoco
 - SonarQube
-- Mongo
 ### Pruebas iniciales
 ![alt text](docs/imagenes/img.png)
 ![alt text](docs/imagenes/img_1.png)
@@ -23,9 +22,16 @@ Para mantener un flujo de trabajo organizado y colaborativo:
 - **main**: Rama estable que siempre contiene la version de produccion del proyecto.
 - **develop**: Rama de desarrollo donde se integran todas las funcionalidades antes de ser liberadas a main.
 - **feature/DiagramasUML**: Rama para Implementar los Diagramas Solicitados en el enunciado
+- **feature/agendar-citas**: Rama que implementa toda la logica para programar una cita.
+- **feature/consultar-cita**: Rama que implementa toda la logica para consultyar una cita por su Id.
+- **feature/mascotas-citas**: Rama que implementa toda la logica para listar todas las citas que tengan cada mascota.
+- **feature/veterinario-cita**: Rama que implementa toda la logica para listar todas las citas de un veterinario.
+- **feature/cancelar-citas**: Rama que implementa toda la logica para cancelar una cita existente
 
 ### Estructura Commit
 commit -m "Semana #: Primer Nombre y apellido - la acción realizada"
+
+Este sera el commit utilizado para todo el proyecto del Equipo Azul
 
 ---
 ## Diagrama de contexto
@@ -43,7 +49,7 @@ aplica las reglas de negocio definidas por la empresa.
 ![alt text](docs/uml/Casos.drawio.png)
 En este diagrama se definieron que acciones puede hacer cada actor en este caso Cliente es todo lo relacionado con usar el servicio del cuidado de las mascota
 y en Veterinaria todo lo relacionado en proveer el servicio para el cuidado de la masota
----
+
 ## Funcionalidades
 
 ### Actor: Cliente
@@ -202,4 +208,40 @@ A continuación se detallan sus funcionalidades:
 - **D – Dependency Inversion Principle (DIP)**  
   El código del dominio depende de abstracciones y no de implementaciones concretas.  
   *Ejemplo:* los servicios trabajan sobre interfaces de repositorio y estrategias de tratamiento, no sobre clases fijas.
+---
+## Diagrama de secuencia
+![alt text](docs/uml/Secuencia.drawio.png)
+
+Se implementó el flujo completo de los métodos correspondientes a la gestión de citas, abarcando desde el controlador hasta el repositorio.
+
+En el diagrama se representa el proceso de agendamiento de una cita, consulta de una cita existente, listado de citas por mascota y listado de citas por veterinario.
+
+En estos flujos se observa cómo el controlador delega la lógica al servicio de citas, el cual, según el caso, realiza las validaciones necesarias a través del validador o bien transfiere directamente la operación al repositorio.
+
+Cabe destacar que, dado que el proyecto no incluye persistencia en una base de datos MongoDB, las operaciones se simulan sin conexión real a la base de datos.
+
+---
+## Cobertura de pruebas
+### Jacoco
+![alt text](docs/imagenes/img_4.png)
+![alt text](docs/imagenes/img_5.png)
+![alt text](docs/imagenes/img_6.png)
+
+Se observa que la implementacion de los test cubren una covertura superior a la definida que era 
+del 85% donde solo se filtraron solo las pruebas para los controlladores y servios.
+### sonarqube
+
+![alt text](docs/imagenes/img_3.png)
+
+En sonarqube se limita las clases que cubre sonarqube para que no baje la cobertura con clases que no necesitan ningun test.
+
+En este caso se limito todo menos el controllador y el servicio ya que son las unicas a las que se les implementa Test
+
+---
+## Pruebas de API REST 
+
+### Gestion de citas sin persistencia
+
+https://www.youtube.com/watch?v=4Ys7kaesiZ0
+
 ---

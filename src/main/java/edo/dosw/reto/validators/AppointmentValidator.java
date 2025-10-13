@@ -27,20 +27,36 @@ public class AppointmentValidator {
 
         boolean vetConflict = repository.findByVeterinary(appointment.getVeterinary().getId())
                 .stream()
-                .anyMatch(a -> a.getDate().equals(appointment.getDate()) &&
-                        a.getTime().equals(appointment.getTime()));
+                .anyMatch(a ->
+                        a.getDate().equals(appointment.getDate()) &&
+                                a.getTime().equals(appointment.getTime())
+                );
 
         if (vetConflict) {
             throw new IllegalStateException("El veterinario ya tiene una cita en esa fecha y hora");
         }
 
-        boolean petConflict = repository.findByPet(appointment.getPet().getId())
+        boolean petTimeConflict = repository.findByPet(appointment.getPet().getId())
                 .stream()
-                .anyMatch(a -> a.getDate().equals(appointment.getDate()) &&
-                        a.getTime().equals(appointment.getTime()));
+                .anyMatch(a ->
+                        a.getDate().equals(appointment.getDate()) &&
+                                a.getTime().equals(appointment.getTime())
+                );
 
-        if (petConflict) {
+        if (petTimeConflict) {
             throw new IllegalStateException("La mascota ya tiene una cita en esa fecha y hora");
+        }
+
+        boolean sameServiceConflict = repository.findByPet(appointment.getPet().getId())
+                .stream()
+                .anyMatch(a ->
+                        a.getService() != null &&
+                                a.getService().getType() != null &&
+                                a.getService().getType().equals(appointment.getService().getType())
+                );
+
+        if (sameServiceConflict) {
+            throw new IllegalStateException("La mascota ya tiene una cita con este mismo tipo de servicio");
         }
     }
 }
