@@ -40,18 +40,15 @@ public class AppointmentController {
         Pet pet = new Pet(dto.getPetId(), dto.getPetName(), species, dto.getPetRace(), 0, null) {};
         Veterinary vet = new Veterinary(dto.getVeterinaryId(), dto.getVeterinaryName());
 
-        ServiceType type = null;
-        if (dto.getServiceType() != null && !dto.getServiceType().isBlank()) {
-            try {
-                type = ServiceType.fromDisplayName(dto.getServiceType());
-            } catch (IllegalArgumentException e) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid service type: " + dto.getServiceType());
+        try {
+            if (dto.getServiceType() != null && !dto.getServiceType().isBlank()) {
+                ServiceType.fromDisplayName(dto.getServiceType());
             }
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid service type: " + dto.getServiceType());
         }
 
-        VetService serviceObj = new VetService(dto.getServiceId(), type, dto.getServiceDescription());
-
-        Appointment appointment = AppointmentMapper.toEntity(dto, pet, vet, serviceObj);
+        Appointment appointment = AppointmentMapper.toEntity(dto, pet, vet);
         Appointment saved = service.schedule(appointment);
         return ResponseEntity.status(HttpStatus.CREATED).body(AppointmentMapper.toDTO(saved));
     }
@@ -77,7 +74,7 @@ public class AppointmentController {
         List<AppointmentDTO> list = service.findByPet(id)
                 .stream()
                 .map(AppointmentMapper::toDTO)
-                .collect(Collectors.toList());
+                .toList();
 
         return ResponseEntity.ok(list);
     }
@@ -99,7 +96,7 @@ public class AppointmentController {
                 LocalDate parsedDate = LocalDate.parse(date);
                 appointments = appointments.stream()
                         .filter(a -> a.getDate().equals(parsedDate))
-                        .collect(Collectors.toList());
+                        .toList();
             } catch (Exception e) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid date format. Use YYYY-MM-DD.");
             }
@@ -107,7 +104,7 @@ public class AppointmentController {
 
         List<AppointmentDTO> list = appointments.stream()
                 .map(AppointmentMapper::toDTO)
-                .collect(Collectors.toList());
+                .toList();
 
         return ResponseEntity.ok(list);
     }

@@ -31,7 +31,7 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
         return data.values().stream()
                 .filter(a -> a.getVeterinary() != null &&
                         veterinaryId.equals(a.getVeterinary().getId()))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -39,7 +39,7 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
         return data.values().stream()
                 .filter(a -> a.getPet() != null &&
                         petId.equals(a.getPet().getId()))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

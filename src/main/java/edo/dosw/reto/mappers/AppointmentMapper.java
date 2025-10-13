@@ -46,7 +46,7 @@ public final class AppointmentMapper {
         return dto;
     }
 
-    public static Appointment toEntity(AppointmentDTO dto, Pet pet, Veterinary vet, VetService service) {
+    public static Appointment toEntity(AppointmentDTO dto, Pet pet, Veterinary vet) {
         if (dto == null) return null;
 
         Appointment appointment = new Appointment();
@@ -55,14 +55,6 @@ public final class AppointmentMapper {
         appointment.setVeterinary(vet);
 
         ServiceType type = null;
-        if (dto.getServiceType() != null && !dto.getServiceType().isBlank()) {
-            try {
-                type = ServiceType.fromDisplayName(dto.getServiceType());
-            } catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException("Invalid service type: " + dto.getServiceType());
-            }
-        }
-
         VetService serviceEntity = new VetService(
                 dto.getServiceId(),
                 type,

@@ -183,7 +183,7 @@ class AppointmentControllerTest {
 
         ResponseEntity<Void> response = controller.cancel(id);
 
-        assertEquals(204, response.getStatusCodeValue());
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
         verify(service).cancel(id);
     }
 
