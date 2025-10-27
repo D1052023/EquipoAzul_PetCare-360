@@ -13,7 +13,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/appointments")
@@ -25,7 +24,6 @@ public class AppointmentController {
         this.service = service;
     }
 
-    /** Agendar una nueva cita **/
     @PostMapping
     public ResponseEntity<AppointmentDTO> schedule(@RequestBody AppointmentDTO dto) {
         if (dto == null) {
@@ -53,7 +51,6 @@ public class AppointmentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(AppointmentMapper.toDTO(saved));
     }
 
-    /** Consultar cita por id**/
     @GetMapping("/{id}")
     public ResponseEntity<AppointmentDTO> getById(@PathVariable String id) {
         if (id == null || id.isBlank()) {
@@ -64,7 +61,6 @@ public class AppointmentController {
         return ResponseEntity.ok(AppointmentMapper.toDTO(appointment));
     }
 
-    /** Listado de citas por mascota **/
     @GetMapping("/pets/{id}")
     public ResponseEntity<List<AppointmentDTO>> getByPet(@PathVariable String id) {
         if (id == null || id.isBlank()) {
@@ -79,7 +75,6 @@ public class AppointmentController {
         return ResponseEntity.ok(list);
     }
 
-    /** Consultar todas las citas para un veterinario, opcionalmente filtradas por fecha**/
     @GetMapping("/veterinaries/{id}")
     public ResponseEntity<List<AppointmentDTO>> getByVeterinary(
             @PathVariable String id,
@@ -108,7 +103,6 @@ public class AppointmentController {
 
         return ResponseEntity.ok(list);
     }
-    /** Cancelar una cita**/
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> cancel(@PathVariable String id) {
         if (id == null || id.isBlank()) {
